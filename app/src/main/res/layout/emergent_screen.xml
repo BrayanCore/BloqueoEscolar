@@ -11,13 +11,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         >
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="335dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="50dp"
 
             >
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -25,91 +27,85 @@
                 android:text="Registro"
                 android:textColor="#363A43"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Por favor ingresa tus datos"
                 android:textColor="#7A8089"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                android:layout_marginTop="20dp">
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nombre de Usuario"
                     android:textColor="#363A43"
-                    android:textColorHint="#7A8089"
-                    />
+                    android:textColorHint="#7A8089" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                android:layout_marginTop="20dp">
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Correo Eléctronico"
                     android:textColor="#363A43"
-                    android:textColorHint="#7A8089"
-                    />
+                    android:textColorHint="#7A8089" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                android:layout_marginTop="20dp">
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Contraseña"
                     android:textColor="#363A43"
-                    android:textColorHint="#7A8089"
-                    />
+                    android:textColorHint="#7A8089" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                >
+                android:layout_marginTop="20dp">
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/confirm_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Confirmar Contraseña"
                     android:textColor="#363A43"
-                    android:textColorHint="#7A8089"
-                    />
+                    android:textColorHint="#7A8089" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_start"
-                android:layout_width="match_parent"
+                android:layout_width="234dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorPrimary"
                 android:text="Enviar"
-                android:textSize="18sp"
                 android:textColor="@android:color/white"
-                />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
