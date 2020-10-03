@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "164880436614",
+    "firebase_url": "https://school-lock-90475.firebaseio.com",
+    "project_id": "school-lock-90475",
+    "storage_bucket": "school-lock-90475.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164880436614:android:34ef24e6f86abc29a47007",
+        "android_client_info": {
+          "package_name": "com.example.bloqueoescolar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164880436614-a9s0k3jcmnelieece8co56vtcjqjtcsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvpW9gP6Y5axlApfAdMoL7RtL6X38jPgM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164880436614-a9s0k3jcmnelieece8co56vtcjqjtcsk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164880436614:android:53d34dce2145c315a47007",
+        "android_client_info": {
+          "package_name": "com.tovar.happybirthday2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164880436614-a9s0k3jcmnelieece8co56vtcjqjtcsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvpW9gP6Y5axlApfAdMoL7RtL6X38jPgM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164880436614-a9s0k3jcmnelieece8co56vtcjqjtcsk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

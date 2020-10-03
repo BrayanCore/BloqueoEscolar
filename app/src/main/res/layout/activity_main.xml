@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/pizarra"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+    <TextView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/texto_pregunta"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="¿Qué enseñanza nos quiere dejar la historia del árbol que da corales?
+        \n¿Cuál es la enseñanza de la historia de la liebre y la tortuga?
+        \nPiensa en algo que te gustaría que tus amigas o amigos aprendieran y crea una historia para comunicar esa enseñanza"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+        android:textStyle="italic"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        >
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:text="A)"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            />
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Respuesta 1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/boton_respuestas"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        >
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:text="B)"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            />
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Respuesta 2"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/boton_respuestas"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        >
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:text="C)"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            />
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Respuesta 3"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/boton_respuestas"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        >
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:text="D)"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@android:color/white"
+            />
+        <Button
+            android:layout_marginLeft="5dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Respuesta 4"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/boton_respuestas"
+            />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/boton_enviar"
+        android:text="ENVIAR REPUESTA"
+        android:padding="20dp"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        />
+
+
+</LinearLayout>
