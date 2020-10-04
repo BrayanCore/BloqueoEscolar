@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Bloqueo Escolar</string>
+    <!-- Pantalla Registro -->
+    <string name="app_register_title">Registro</string>
+    <string name="app_register_instructions">Por favor ingresa tus datos</string>
+    <string name="app_register_input_name">Nombre</string>
+    <string name="app_register_input_ap_paterno">Apellido Paterno</string>
+    <string name="app_register_input_ap_materno">Apellido Materno</string>
+    <string name="app_register_input_email">Correo electrónico</string>
+    <string name="app_register_input_psw">Contraseña</string>
+    <string name="app_register_input_psw_confirm">Confirmar contraseña</string>
+    <string name="app_register_btn_register">Registrar</string>
 </resources>
