@@ -3,4 +3,6 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorInputLogin">#257BAC</color>
+    <color name="colorHyperVinculo">#316BB6</color>
 </resources>

@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistroActivity"></activity>
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Question" />
-        <activity android:name=".SelectGrade"></activity>
+        <activity android:name=".SelectGrade" />
         <activity android:name=".AddQuestion" />
         <activity android:name=".MainActivity" />
     </application>
