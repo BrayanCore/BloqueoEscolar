@@ -3,7 +3,7 @@
     <!-- Pantalla Inicio de sesión-->
     <string name="app_login_title">Schoolar Lock</string>
     <string name="app_login_btn_login">Iniciar sesión</string>
-    <string name="app_login_btn_text_register">Crear Cuenta</string>
+    <string name="app_login_btn_text_register">CREAR CUENTA</string>
     <string name="app_login_btn_text_forget_password">He olvidado mi contraseña</string>
     <!-- Pantalla Registro -->
     <string name="app_register_title">Registro</string>

@@ -1,5 +1,6 @@
 package com.example.bloqueoescolar
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -9,6 +10,7 @@ import com.example.bloqueoescolar.domain.entity.RegistroUsuario
 import com.example.bloqueoescolar.domain.entity.Usuario
 import com.example.bloqueoescolar.service.UsuarioService
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.acitivy_register.*
@@ -41,69 +43,72 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun createAccount(registro: RegistroUsuario) {
 
-        if(!formularioValido(registro)) {
-            return
-        }
+        if(!formularioValido(registro)) { return }
 
-        Log.d(TAG, "createAccount: ${registro.email}")
+        Log.d(TAG, "crearCuenta: ${registro.email}")
 
         auth.createUserWithEmailAndPassword(registro.email, registro.password)
-            .addOnCompleteListener(this) {
-                    task ->
+            .addOnCompleteListener(this) { task ->
                 Log.d(TAG, task.isSuccessful.toString())
                 if (task.isSuccessful) {
                     Log.d(TAG, "createUserWithEmail:success")
-                    this.sendEmailVerification(registro)
+                    this.enviarCorreoVerificacion(registro)
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Error al registrarse: ${task.exception}",
-                        Toast.LENGTH_SHORT).show()
+                    showToast("Error al crear al usuario.")
                 }
             }
     }
 
-    private fun sendEmailVerification(registro: RegistroUsuario) {
+    private fun enviarCorreoVerificacion(registro: RegistroUsuario) {
         val user = auth.currentUser!!
         user.sendEmailVerification()
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(baseContext,
-                        "Se ha enviado un correo de verificación a ${user.email} ",
-                        Toast.LENGTH_SHORT).show()
-                    usuarioService = UsuarioService()
-                    var usuario = Usuario(user.uid, registro.nombre, "test", "test", registro.email, registro.password)
-                    usuarioService.registerUsuario(user.uid, usuario)
+                    this.registrarUsuario(registro, user)
+                    showToast("Se ha enviado un correo de verificación a ${user.email} ")
+                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Log.e(TAG, "sendEmailVerification", task.exception)
-                    Toast.makeText(baseContext,
-                        "Ocurrió un error al enviar el correo de verificación.",
-                        Toast.LENGTH_SHORT).show()
+                    showToast("Ocurrió un error al enviar el correo de verificación.")
                 }
             }
+    }
+
+    private fun registrarUsuario(registro:RegistroUsuario, user: FirebaseUser) {
+        usuarioService = UsuarioService()
+        val usuario = Usuario(user.uid,
+            registro.nombre, "test", "test", registro.email, registro.password)
+        usuarioService.registerUsuario(user.uid, usuario)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(baseContext, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun formularioValido(registro: RegistroUsuario): Boolean {
         var valid = true;
 
-        var nombreRev = registro.nombre
+        val nombreRev = registro.nombre
         if (TextUtils.isEmpty(nombreRev)) {
             name.error = "Ingrese un nombre."
             valid = false
         }
 
-        var emailRev = registro.email
+        val emailRev = registro.email
         if (TextUtils.isEmpty(emailRev)) {
             email.error = "Ingrese un correo eléctronico."
             valid = false
         }
 
-        var passRev = registro.password
+        val passRev = registro.password
         if (TextUtils.isEmpty(passRev)) {
             password.error = "Ingrese una contraseña."
             valid = false
         }
 
-        var confPassRev = registro.confirmPassword
+        val confPassRev = registro.confirmPassword
         if (TextUtils.isEmpty(confPassRev)) {
             confirm_password.error = "Debe confirmar la contraseña."
             valid = false
