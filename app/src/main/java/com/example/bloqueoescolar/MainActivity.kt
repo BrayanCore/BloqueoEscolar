@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
         PendingExams(pendingSubjects.size, contenedor1)
         ApprovedExams(approvedSubjects.size,contenedor2)
-
     }
 
     fun ApprovedExams(elementos: Int, contenedor: LinearLayout) {
