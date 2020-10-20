@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.bloqueoescolar.domain.struct.StructExam
+import com.example.bloqueoescolar.domain.struct.StructGrade
+import com.example.bloqueoescolar.domain.struct.StructOptions
+import com.example.bloqueoescolar.domain.struct.StructQuestion
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_question.*
 import kotlinx.android.synthetic.main.send_exam_dialog.view.*
-import kotlin.random.Random
 
 class AddQuestion : AppCompatActivity() {
 

@@ -1,4 +1,6 @@
-package com.example.bloqueoescolar
+package com.example.bloqueoescolar.domain.struct
+
+import java.io.Serializable
 
 data class StructGrade(
 
@@ -6,4 +8,4 @@ data class StructGrade(
     var grade: Int,
     var subjects: ArrayList<StructExam> = ArrayList()
 
-)
+) : Serializable
