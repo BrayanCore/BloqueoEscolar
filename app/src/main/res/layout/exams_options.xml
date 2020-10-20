@@ -11,7 +11,22 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
+        >
+        <Button
+            android:id="@+id/create_exam"
+            android:background="@drawable/c_purple"
+            android:layout_height="50dp"
+            android:layout_width="200dp"
+            android:text="CREAR EXÁMEN"
+            android:textColor="@android:color/white"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         >
         <ImageView
