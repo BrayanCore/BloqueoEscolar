@@ -21,6 +21,8 @@
         <activity android:name=".AddQuestion" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".Exams" />
+        <activity android:name=".Score"/>
 
         <meta-data
             android:name="preloaded_fonts"

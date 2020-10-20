@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_question.*
 import kotlinx.android.synthetic.main.send_exam_dialog.view.*
@@ -14,7 +15,7 @@ class AddQuestion : AppCompatActivity() {
 
     var Exam = StructExam(
         "",
-        0,
+        "",
         ArrayList<StructQuestion>()
     )
 
@@ -97,7 +98,6 @@ class AddQuestion : AppCompatActivity() {
             Toast.makeText(applicationContext, "$numberCorrect", Toast.LENGTH_LONG).show()
 
             val que1 = StructQuestion(
-                0,
                 description.text.toString(),
                 numberCorrect,
                 answers
@@ -152,7 +152,20 @@ class AddQuestion : AppCompatActivity() {
 
     fun sendExam(){
 
-        Toast.makeText(applicationContext, "$Exam", Toast.LENGTH_LONG).show()
+        /*
+        val database = FirebaseDatabase.getInstance().getReference("Exámenes")
+        val examID = database.push().key
+
+        Exam.id = examID!!
+
+        val examen = Exam
+
+        database.child(examID).setValue(examen).addOnCompleteListener{
+            Toast.makeText(applicationContext, "User saved successfully", Toast.LENGTH_LONG).show()
+        }
+        */
+
+        //createGrades()
 
     }
 
@@ -163,6 +176,103 @@ class AddQuestion : AppCompatActivity() {
             stop = true
         }else{
             stop = false
+        }
+
+    }
+
+    fun createGrades(){
+
+        val database = FirebaseDatabase.getInstance().getReference("Grados")
+        for (j in 1 until 7){
+
+            when(j) {
+                1 -> {
+                    var grade1 = StructGrade("",1,ArrayList<StructExam>())
+                    val grade1ID = database.push().key
+                    grade1.id = grade1ID!!
+
+                    database.child(grade1ID).setValue(grade1).addOnCompleteListener{
+                        Toast.makeText(applicationContext, "Grado escolar creado", Toast.LENGTH_SHORT).show()
+                    }
+                    val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade1ID).child("subjects")
+                    val exam1ID = databaseExam.push().key
+                    Exam.id = exam1ID!!
+                    databaseExam.child(exam1ID).setValue(Exam).addOnCompleteListener {
+                        Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                2 -> {
+                    var grade2 = StructGrade("",2,ArrayList<StructExam>())
+                    val grade2ID = database.push().key
+                    grade2.id = grade2ID!!
+                    database.child(grade2ID).setValue(grade2).addOnCompleteListener{
+                        Toast.makeText(applicationContext, "Grado escolar creado", Toast.LENGTH_SHORT).show()
+                    }
+                    val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade2ID).child("subjects")
+                    val exam2ID = databaseExam.push().key
+                    Exam.id = exam2ID!!
+                    databaseExam.child(exam2ID).setValue(Exam).addOnCompleteListener {
+                        Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                3 -> {
+                    var grade3 = StructGrade("",3,ArrayList<StructExam>())
+                    val grade3ID = database.push().key
+                    grade3.id = grade3ID!!
+                    database.child(grade3ID).setValue(grade3).addOnCompleteListener{
+                        Toast.makeText(applicationContext, "Grado escolar creado", Toast.LENGTH_SHORT).show()
+                    }
+                    val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade3ID).child("subjects")
+                    val exam3ID = databaseExam.push().key
+                    Exam.id = exam3ID!!
+                    databaseExam.child(exam3ID).setValue(Exam).addOnCompleteListener {
+                        Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                4 -> {
+                    var grade4 = StructGrade("",4,ArrayList<StructExam>())
+                    val grade4ID = database.push().key
+                    grade4.id = grade4ID!!
+                    database.child(grade4ID).setValue(grade4).addOnCompleteListener{
+                        Toast.makeText(applicationContext, "Grado escolar creado", Toast.LENGTH_SHORT).show()
+                    }
+                    val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade4ID).child("subjects")
+                    val exam4ID = databaseExam.push().key
+                    Exam.id = exam4ID!!
+                    databaseExam.child(exam4ID).setValue(Exam).addOnCompleteListener {
+                        Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                5 -> {
+                    var grade5 = StructGrade("",5,ArrayList<StructExam>())
+                    val grade5ID = database.push().key
+                    grade5.id = grade5ID!!
+                    database.child(grade5ID).setValue(grade5).addOnCompleteListener{
+                        Toast.makeText(applicationContext, "Grado escolar creado", Toast.LENGTH_SHORT).show()
+                    }
+                    val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade5ID).child("subjects")
+                    val exam5ID = databaseExam.push().key
+                    Exam.id = exam5ID!!
+                    databaseExam.child(exam5ID).setValue(Exam).addOnCompleteListener {
+                        Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                6 -> {
+                    var grade6 = StructGrade("",6,ArrayList<StructExam>())
+                    val grade6ID = database.push().key
+                    grade6.id = grade6ID!!
+                    database.child(grade6ID).setValue(grade6).addOnCompleteListener{
+                        Toast.makeText(applicationContext, "Grado escolar creado", Toast.LENGTH_SHORT).show()
+                    }
+                    val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade6ID).child("subjects")
+                    val exam6ID = databaseExam.push().key
+                    Exam.id = exam6ID!!
+                    databaseExam.child(exam6ID).setValue(Exam).addOnCompleteListener {
+                        Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                else -> Toast.makeText(applicationContext, "Error", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }

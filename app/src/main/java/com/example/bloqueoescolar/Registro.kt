@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.emergent_screen.*
+//import kotlinx.android.synthetic.main.emergent_screen.*
 
 
 class Registro : AppCompatActivity() {
@@ -14,15 +14,15 @@ class Registro : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.emergent_screen)
+        //setContentView(R.layout.emergent_screen)
 
-        btn_submit.setOnClickListener(){
+        /*btn_submit.setOnClickListener(){
             sendData();
-        }
+        }*/
 
     }
 
-    private fun sendData(){
+    /*private fun sendData(){
 
         if(name.text.isNullOrEmpty() == true || email.text.isNullOrEmpty() == true || password.text.isNullOrEmpty() == true || confirm_password.text.isNullOrEmpty() == true){
             Toast.makeText(
@@ -67,6 +67,6 @@ class Registro : AppCompatActivity() {
         startActivity(intent)
         finish()
 
-    }
+    }*/
 
 }
