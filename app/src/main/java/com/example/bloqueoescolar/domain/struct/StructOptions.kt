@@ -1,4 +1,6 @@
-package com.example.bloqueoescolar
+package com.example.bloqueoescolar.domain.struct
+
+import java.io.Serializable
 
 data class StructOptions(
 
@@ -7,4 +9,4 @@ data class StructOptions(
     var optionThree : String,
     var optionFour : String,
 
-)
+) : Serializable

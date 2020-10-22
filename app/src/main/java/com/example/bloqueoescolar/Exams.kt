@@ -9,11 +9,13 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bloqueoescolar.domain.struct.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.exams_options.*
+import kotlin.collections.ArrayList
 
 class Exams : AppCompatActivity(){
 
@@ -32,17 +34,10 @@ class Exams : AppCompatActivity(){
         contenedor1 = findViewById(R.id.AvailableExams)
         contenedor2 = findViewById(R.id.Layout)
 
-        PendingExams(pendingSubjects.size, contenedor1)
-        ApprovedExams(approvedSubjects.size,contenedor2)
-
         val index = intent.getIntExtra("Grade",100)
-
-        /*Toast.makeText(this,
-            "$index", Toast.LENGTH_LONG
-        ).show()*/
-
         loadInformation(index)
 
+        // Crear examen activity
         create_exam.setOnClickListener {
             val intent = Intent(applicationContext, AddQuestion::class.java)
             startActivity(intent)
@@ -50,6 +45,29 @@ class Exams : AppCompatActivity(){
 
     }
 
+    /**
+     * Funcion para imprimir todos los examenes
+     */
+    fun printAllExams(contenedor: LinearLayout) {
+        for (exam in gradeTest.subjects!!) {
+            val boton = Button(applicationContext)
+            boton.text = exam.name
+            boton.setBackgroundResource(R.drawable.boton_respuestas)
+
+            // Llamamos a la funcion on click
+            boton.setOnClickListener(){
+                val intent = Intent(applicationContext, Question::class.java)
+                intent.putExtra("questions", exam.questions)
+                intent.putExtra("index", 0)
+                startActivity(intent)
+            }
+
+            // Se agrega el boton a la vista
+            contenedor.addView(boton)
+        }
+    }
+
+    @Deprecated("Funcion no utilizada")
     fun ApprovedExams(elementos: Int, contenedor: LinearLayout) {
         for (i in 0 until elementos) {
             //creando un objeto de la clase button
@@ -67,6 +85,7 @@ class Exams : AppCompatActivity(){
         }
     }
 
+    @Deprecated("Funcion no utilizada")
     fun PendingExams(elementos: Int, contenedor: LinearLayout) {
         for (i in 0 until elementos) {
             //creando un objeto de la clase button
@@ -78,7 +97,6 @@ class Exams : AppCompatActivity(){
                 val intent = Intent(applicationContext, Question::class.java)
                 intent.putExtra("Index",approvedSubjects.get(i))
                 startActivity(intent)
-
             }
             contenedor.addView(boton)
         }
@@ -91,7 +109,7 @@ class Exams : AppCompatActivity(){
         finish()
     }
 
-    fun loadInformation(index: Int){
+    public fun loadInformation(index: Int){
 
         val examsListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -139,6 +157,8 @@ class Exams : AppCompatActivity(){
                 }
                 // AQUÍ SE IMPRIME EL EXAMEN YA CON TODA LA INFO
                 Toast.makeText(applicationContext, "$gradeTest", Toast.LENGTH_LONG).show()
+
+                printAllExams(contenedor1)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -149,7 +169,6 @@ class Exams : AppCompatActivity(){
         }
 
         database.addValueEventListener(examsListener);
-
     }
 
 }
