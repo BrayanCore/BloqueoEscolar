@@ -19,6 +19,12 @@ class Question : AppCompatActivity() {
             "$index", Toast.LENGTH_LONG
         ).show()
 
+        first_clicked.text = "1"
+        second_clicked.text = "2"
+        third_clicked.text = "3"
+        fourth_clicked.text = "4"
+        descriptionProblem.text = "Número"
+
         // AÑADIR EVENTO PARA CUANDO SE CLIQUEA UNA OPCION
         first_clicked.setOnClickListener {
             optionSelected = 1;
@@ -59,6 +65,40 @@ class Question : AppCompatActivity() {
         Toast.makeText(this,
             "$optionSelected", Toast.LENGTH_LONG
         ).show()
+        cleanFields()
+    }
+
+    fun changeColor(i: Int){
+
+        when(i) {
+            1 -> {
+                first_clicked.background
+                second_clicked.background
+                third_clicked.background
+                fourth_clicked.background
+            }
+            2 -> {
+
+            }
+            3 -> {
+
+            }
+            4 -> {
+
+            }
+            else ->{
+
+            }
+        }
+
+    }
+
+    fun cleanFields(){
+        first_clicked.text = ""
+        second_clicked.text = ""
+        third_clicked.text = ""
+        fourth_clicked.text = ""
+        descriptionProblem.text = ""
     }
 
 }
