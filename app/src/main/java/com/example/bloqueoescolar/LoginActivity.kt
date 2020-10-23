@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import com.example.bloqueoescolar.domain.entity.RegistroUsuario
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.acitivy_register.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {

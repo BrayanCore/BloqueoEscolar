@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import com.example.bloqueoescolar.domain.entity.RegistroUsuario
-import com.example.bloqueoescolar.domain.entity.Usuario
+import com.example.bloqueoescolar.domain.struct.StructNewUser
+import com.example.bloqueoescolar.domain.struct.StructUser
 import com.example.bloqueoescolar.service.UsuarioService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -36,12 +36,12 @@ class RegisterActivity : AppCompatActivity() {
             val email =  email.text.toString().trim()
             val pass =  password.text.toString().trim()
             val confPass = confirm_password.text.toString()
-            val registro = RegistroUsuario(name, email, pass, confPass)
+            val registro = StructNewUser(name, email, pass, confPass)
             createAccount(registro)
         }
     }
 
-    private fun createAccount(registro: RegistroUsuario) {
+    private fun createAccount(registro: StructNewUser) {
 
         if(!formularioValido(registro)) { return }
 
@@ -60,7 +60,7 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun enviarCorreoVerificacion(registro: RegistroUsuario) {
+    private fun enviarCorreoVerificacion(registro: StructNewUser) {
         val user = auth.currentUser!!
         user.sendEmailVerification()
             .addOnCompleteListener(this) { task ->
@@ -76,9 +76,9 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun registrarUsuario(registro:RegistroUsuario, user: FirebaseUser) {
+    private fun registrarUsuario(registro:StructNewUser, user: FirebaseUser) {
         usuarioService = UsuarioService()
-        val usuario = Usuario(user.uid,
+        val usuario = StructUser(user.uid,
             registro.nombre, "test", "test", registro.email, registro.password)
         usuarioService.registerUsuario(user.uid, usuario)
     }
@@ -87,7 +87,7 @@ class RegisterActivity : AppCompatActivity() {
         Toast.makeText(baseContext, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun formularioValido(registro: RegistroUsuario): Boolean {
+    private fun formularioValido(registro: StructNewUser): Boolean {
         var valid = true;
 
         val nombreRev = registro.nombre
