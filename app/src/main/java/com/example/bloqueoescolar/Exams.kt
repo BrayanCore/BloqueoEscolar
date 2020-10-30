@@ -104,7 +104,7 @@ class Exams : AppCompatActivity(){
 
     fun changeToQuestion(view: View){
         Toast.makeText(applicationContext, "Hola", Toast.LENGTH_LONG).show()
-        val intent = Intent(view.context, SelectGrade::class.java)
+        val intent = Intent(view.context, Grades::class.java)
         startActivity(intent)
         finish()
     }

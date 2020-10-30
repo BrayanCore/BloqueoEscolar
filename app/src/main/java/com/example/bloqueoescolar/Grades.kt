@@ -4,13 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bloqueoescolar.domain.repository.GradeService
 import com.example.bloqueoescolar.domain.struct.StructExam
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.select_grade.*
 
-class SelectGrade : AppCompatActivity() {
+class Grades : AppCompatActivity() {
+
+    lateinit var service: GradeService
 
     companion object {
         private const val TAG = "SelectGradeActivity"
@@ -19,6 +22,12 @@ class SelectGrade : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_grade)
+        service = GradeService()
+        service.getGrades()
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         first_grade.setOnClickListener {
             val intent = Intent(applicationContext, Exams::class.java)
@@ -55,7 +64,9 @@ class SelectGrade : AppCompatActivity() {
             intent.putExtra("Grade", 6)
             startActivity(intent)
         }
-
     }
 
+    fun getGrades() {
+
+    }
 }
