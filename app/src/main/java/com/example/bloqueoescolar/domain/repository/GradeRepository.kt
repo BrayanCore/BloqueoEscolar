@@ -3,14 +3,14 @@ package com.example.bloqueoescolar.domain.repository
 import android.content.ContentValues
 import android.util.Log
 import com.example.bloqueoescolar.domain.struct.StructGrade
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class GradeService {
+class GradeRepository {
 
+    var database: FirebaseDatabase = Firebase.database
+    var reference: DatabaseReference = database.reference
     lateinit var listGrades: List<StructGrade>
 
     constructor() {
@@ -18,8 +18,6 @@ class GradeService {
     }
 
     fun getGrades() {
-        val database = Firebase.database
-        val gradeReference = database.getReference("Grados")
         listGrades = ArrayList()
 
         val gradesListener = object : ValueEventListener {
@@ -38,6 +36,6 @@ class GradeService {
             }
         }
 
-        gradeReference.addValueEventListener(gradesListener)
+        reference.addValueEventListener(gradesListener)
     }
 }

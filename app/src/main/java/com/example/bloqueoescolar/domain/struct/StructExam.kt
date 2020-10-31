@@ -8,4 +8,6 @@ data class StructExam(
     var id: String,
     var questions: ArrayList<StructQuestion> = ArrayList()
 
-) : Serializable
+) : Serializable {
+    constructor()
+}
