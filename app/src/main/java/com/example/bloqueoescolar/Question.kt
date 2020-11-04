@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_question.*
 
 class Question : AppCompatActivity() {
 
-    var optionSelected = 0;
+    var optionSelected = 0; // Indica la opcion seleccionada
     var index = 0; // Indica el numero de pregunta actual
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +29,10 @@ class Question : AppCompatActivity() {
         second_clicked.text = options.optionTwo
         third_clicked.text = options.optionThree
         fourth_clicked.text = options.optionFour
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         // AÑADIR EVENTO PARA CUANDO SE CLIQUEA UNA OPCION
         first_clicked.setOnClickListener {
@@ -51,7 +55,6 @@ class Question : AppCompatActivity() {
         submit_exam_btn.setOnClickListener {
             answer()
         }
-
     }
 
     fun answer(){

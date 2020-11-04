@@ -2,8 +2,16 @@ package com.example.bloqueoescolar.domain.struct
 
 import java.io.Serializable
 
-data class StructQuestion(
-    var question: String,
-    var correctAnswer: Int,
-    var options: StructOptions
-) : Serializable
+class StructQuestion : Serializable {
+    var question: String = ""
+    var correctAnswer: Int = 0
+    var options: StructOptions = StructOptions()
+
+    constructor()
+
+    constructor(
+        question: String,
+        correctAnswer: Int,
+        options: StructOptions
+    )
+}

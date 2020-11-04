@@ -9,17 +9,19 @@ import com.example.bloqueoescolar.domain.struct.StructExam
 import com.example.bloqueoescolar.domain.struct.StructGrade
 import com.example.bloqueoescolar.domain.struct.StructOptions
 import com.example.bloqueoescolar.domain.struct.StructQuestion
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.add_question.*
 import kotlinx.android.synthetic.main.send_exam_dialog.view.*
 
 class AddQuestion : AppCompatActivity() {
 
-    var Exam = StructExam(
-        "",
-        "",
-        ArrayList<StructQuestion>()
-    )
+    private lateinit var database: DatabaseReference
+
+    var exam: StructExam = StructExam()
+    var grade: StructGrade = StructGrade()
 
     var stop = false;
     var numberCorrect = 0;
@@ -28,85 +30,10 @@ class AddQuestion : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_question)
 
-        add_question.setOnClickListener {
+        database = Firebase.database.reference
 
-            ValidateFields();
-            if(stop){
-                return@setOnClickListener
-            }
-
-
-            var numbers =  ArrayList<Int>()
-            var numberToWant = 4
-
-            do {
-                var next = (1..4).random()
-                if(!numbers.contains(next)){
-                    numbers.add(next)
-                }
-            }while (numbers.size < numberToWant)
-
-            var answers = StructOptions("","","","")
-
-            for(i in 0 until numbers.size){
-
-                when(i){
-                    0 -> when(numbers[i]){
-                        1 -> {
-                            answers.optionOne = answer1.text.toString()
-                            numberCorrect = i+1
-                        }
-                        2 -> answers.optionOne =  answer2.text.toString()
-                        3 -> answers.optionOne = answer3.text.toString()
-                        4 -> answers.optionOne =  answer4.text.toString()
-                        else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
-                    }
-                    1 -> when(numbers[i]){
-                        1 -> {
-                            answers.optionTwo = answer1.text.toString()
-                            numberCorrect = i+1
-                        }
-                        2 -> answers.optionTwo =  answer2.text.toString()
-                        3 -> answers.optionTwo = answer3.text.toString()
-                        4 -> answers.optionTwo =  answer4.text.toString()
-                        else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
-                    }
-                    2 -> when(numbers[i]){
-                        1 -> {
-                            answers.optionThree = answer1.text.toString()
-                            numberCorrect = i+1
-                        }
-                        2 -> answers.optionThree =  answer2.text.toString()
-                        3 -> answers.optionThree = answer3.text.toString()
-                        4 -> answers.optionThree =  answer4.text.toString()
-                        else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
-                    }
-                    3 -> when(numbers[i]){
-                        1 -> {
-                            answers.optionFour = answer1.text.toString()
-                            numberCorrect = i+1
-                        }
-                        2 -> answers.optionFour =  answer2.text.toString()
-                        3 -> answers.optionFour = answer3.text.toString()
-                        4 -> answers.optionFour =  answer4.text.toString()
-                        else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
-                    }
-                    else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
-                }
-
-            }
-
-            Toast.makeText(applicationContext, "$answers", Toast.LENGTH_LONG).show()
-            Toast.makeText(applicationContext, "$numberCorrect", Toast.LENGTH_LONG).show()
-
-            val que1 = StructQuestion(
-                description.text.toString(),
-                numberCorrect,
-                answers
-            )
-
-            addQuestionToExam(que1)
-
+        if(grade.id.isNullOrEmpty()){
+            grade = intent.getSerializableExtra("grade") as StructGrade
         }
 
         // OPEN DIALOG
@@ -125,7 +52,7 @@ class AddQuestion : AppCompatActivity() {
 
                 val name = mDialogView.exam_name.text.toString()
                 Toast.makeText(applicationContext, "$name", Toast.LENGTH_LONG).show()
-                Exam.name = name
+                exam.name = name
                 sendExam()
             }
 
@@ -138,48 +65,157 @@ class AddQuestion : AppCompatActivity() {
 
     }
 
-    fun addQuestionToExam(question: StructQuestion){
+    override fun onStart() {
+        super.onStart()
 
-        /*var randomNumber =  (1..4).random()
-        Toast.makeText(applicationContext, "$randomNumber", Toast.LENGTH_LONG).show()*/
+        // Se agrega una pregunta al examen
+        add_question.setOnClickListener {
+            addQuestion()
+        }
+    }
 
-        Exam.questions.add(question)
+    private fun addQuestion() {
+        if (validateFields()) { // Valida que los campos sean correctos
+
+            var numbers =  ArrayList<Int>()
+            var numberToWant = 4
+
+            do {
+                var next = (1..4).random()
+                if(!numbers.contains(next)){
+                    numbers.add(next)
+                }
+            }while (numbers.size < numberToWant)
+
+            var answers = StructOptions()
+
+            for(i in 0 until numbers.size){
+
+                when(i){
+                    0 -> when(numbers[i]) {
+                        1 -> {
+                            answers.optionOne = answer1.text.toString()
+                            numberCorrect = i+1
+                        }
+
+                        2 -> answers.optionOne =  answer2.text.toString()
+
+                        3 -> answers.optionOne = answer3.text.toString()
+
+                        4 -> answers.optionOne =  answer4.text.toString()
+
+                        else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
+                    }
+
+                    1 -> when(numbers[i]) {
+                        1 -> {
+                            answers.optionTwo = answer1.text.toString()
+                            numberCorrect = i+1
+                        }
+
+                        2 -> answers.optionTwo =  answer2.text.toString()
+
+                        3 -> answers.optionTwo = answer3.text.toString()
+
+                        4 -> answers.optionTwo =  answer4.text.toString()
+
+                        else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
+                    }
+
+                    2 -> when(numbers[i]){
+                        1 -> {
+                            answers.optionThree = answer1.text.toString()
+                            numberCorrect = i+1
+                        }
+
+                        2 -> answers.optionThree =  answer2.text.toString()
+
+                        3 -> answers.optionThree = answer3.text.toString()
+
+                        4 -> answers.optionThree =  answer4.text.toString()
+
+                        else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
+                    }
+
+                    3 -> when(numbers[i]) {
+                        1 -> {
+                            answers.optionFour = answer1.text.toString()
+                            numberCorrect = i+1
+                        }
+
+                        2 -> answers.optionFour =  answer2.text.toString()
+
+                        3 -> answers.optionFour = answer3.text.toString()
+
+                        4 -> answers.optionFour =  answer4.text.toString()
+
+                        else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
+                    }
+
+                    else -> Toast.makeText(this, "Invalid Number", Toast.LENGTH_LONG).show()
+
+                } //End Switch
+
+            } //End for
+
+            // Se crea el objeto de la pregunta
+            val questionAdded = StructQuestion(
+                description.text.toString(),
+                numberCorrect,
+                answers
+            )
+
+            // Se añade la pregunta al examen
+            addQuestionToExam(questionAdded)
+        }
+    }
+
+    fun addQuestionToExam(questionAdded: StructQuestion){
+        exam.questions.add(questionAdded)
+
+        clearFields()
+    }
+
+
+    fun sendExam() {
+        // Se establece referencia a tabla de examenes del grado actual
+        database = FirebaseDatabase.getInstance().getReference("Grados/${grade.id}/subjects")
+
+        // Se crea el id del examen
+        val examID = database.push().key
+        exam.id = examID!!
+
+        // Se guarda el examen
+        database.child(examID).setValue(exam).addOnCompleteListener {
+            Toast.makeText(applicationContext, "Se ha guardado el examen correctamente.",
+                Toast.LENGTH_LONG).show()
+        }
+    }
+
+    /**
+     * Funcion para limpiar los campos
+     */
+    private fun clearFields() {
         description.text.clear()
         answer1.text!!.clear()
         answer2.text!!.clear()
         answer3.text!!.clear()
         answer4.text!!.clear()
-
     }
 
-    fun sendExam(){
+    /**
+     * Valida los campos para agregar una nueva pregunta
+     */
+    private fun validateFields() : Boolean {
 
-        /*
-        val database = FirebaseDatabase.getInstance().getReference("Exámenes")
-        val examID = database.push().key
-
-        Exam.id = examID!!
-
-        val examen = Exam
-
-        database.child(examID).setValue(examen).addOnCompleteListener{
-            Toast.makeText(applicationContext, "User saved successfully", Toast.LENGTH_LONG).show()
-        }
-        */
-
-        //createGrades()
-
-    }
-
-    fun ValidateFields(){
-
-        if(description.text.isEmpty() == true || answer1.text.isNullOrEmpty() == true || answer2.text.isNullOrEmpty() == true || answer3.text.isNullOrEmpty() == true || answer4.text.isNullOrEmpty() == true){
+        if (description.text.isEmpty() || answer1.text.isNullOrEmpty()
+            || answer2.text.isNullOrEmpty() || answer3.text.isNullOrEmpty()
+            || answer4.text.isNullOrEmpty()) {
             Toast.makeText(applicationContext, "COMPLETA TODOS LOS CAMPOS", Toast.LENGTH_LONG).show()
-            stop = true
-        }else{
-            stop = false
+            return false
         }
 
+        return true
     }
 
     fun createGrades(){
@@ -198,8 +234,8 @@ class AddQuestion : AppCompatActivity() {
                     }
                     val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade1ID).child("subjects")
                     val exam1ID = databaseExam.push().key
-                    Exam.id = exam1ID!!
-                    databaseExam.child(exam1ID).setValue(Exam).addOnCompleteListener {
+                    exam.id = exam1ID!!
+                    databaseExam.child(exam1ID).setValue(exam).addOnCompleteListener {
                         Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -212,8 +248,8 @@ class AddQuestion : AppCompatActivity() {
                     }
                     val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade2ID).child("subjects")
                     val exam2ID = databaseExam.push().key
-                    Exam.id = exam2ID!!
-                    databaseExam.child(exam2ID).setValue(Exam).addOnCompleteListener {
+                    exam.id = exam2ID!!
+                    databaseExam.child(exam2ID).setValue(exam).addOnCompleteListener {
                         Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -226,8 +262,8 @@ class AddQuestion : AppCompatActivity() {
                     }
                     val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade3ID).child("subjects")
                     val exam3ID = databaseExam.push().key
-                    Exam.id = exam3ID!!
-                    databaseExam.child(exam3ID).setValue(Exam).addOnCompleteListener {
+                    exam.id = exam3ID!!
+                    databaseExam.child(exam3ID).setValue(exam).addOnCompleteListener {
                         Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -240,8 +276,8 @@ class AddQuestion : AppCompatActivity() {
                     }
                     val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade4ID).child("subjects")
                     val exam4ID = databaseExam.push().key
-                    Exam.id = exam4ID!!
-                    databaseExam.child(exam4ID).setValue(Exam).addOnCompleteListener {
+                    exam.id = exam4ID!!
+                    databaseExam.child(exam4ID).setValue(exam).addOnCompleteListener {
                         Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -254,8 +290,8 @@ class AddQuestion : AppCompatActivity() {
                     }
                     val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade5ID).child("subjects")
                     val exam5ID = databaseExam.push().key
-                    Exam.id = exam5ID!!
-                    databaseExam.child(exam5ID).setValue(Exam).addOnCompleteListener {
+                    exam.id = exam5ID!!
+                    databaseExam.child(exam5ID).setValue(exam).addOnCompleteListener {
                         Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -268,8 +304,8 @@ class AddQuestion : AppCompatActivity() {
                     }
                     val databaseExam = FirebaseDatabase.getInstance().getReference("Grados").child(grade6ID).child("subjects")
                     val exam6ID = databaseExam.push().key
-                    Exam.id = exam6ID!!
-                    databaseExam.child(exam6ID).setValue(Exam).addOnCompleteListener {
+                    exam.id = exam6ID!!
+                    databaseExam.child(exam6ID).setValue(exam).addOnCompleteListener {
                         Toast.makeText(applicationContext, "Exámen agregado", Toast.LENGTH_SHORT).show()
                     }
                 }

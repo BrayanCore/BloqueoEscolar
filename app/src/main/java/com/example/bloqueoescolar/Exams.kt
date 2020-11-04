@@ -17,11 +17,11 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.exams_options.*
 import kotlin.collections.ArrayList
 
-class Exams : AppCompatActivity(){
+class Exams : AppCompatActivity() {
 
-    val approvedSubjects = arrayOf("Biología", "Matematicas", "Química", "Español", "Ética", "Cursiva", "Ed.Física", "Historia")
-    val pendingSubjects = arrayOf("Biología", "Matematicas", "Química", "Español", "Ética", "Cursiva", "Ed.Física", "Historia")
-    var gradeTest = StructGrade("",0, ArrayList<StructExam>())
+    //val approvedSubjects = arrayOf("Biología", "Matematicas", "Química", "Español", "Ética", "Cursiva", "Ed.Física", "Historia")
+    //val pendingSubjects = arrayOf("Biología", "Matematicas", "Química", "Español", "Ética", "Cursiva", "Ed.Física", "Historia")
+    var grade = StructGrade()
     val database = FirebaseDatabase.getInstance().getReference("Grados")
 
     private lateinit var contenedor1: LinearLayout
@@ -31,25 +31,34 @@ class Exams : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.exams_options)
 
+        //Se obtiene el grado actual
+        grade = intent.getSerializableExtra("grade") as StructGrade
+
         contenedor1 = findViewById(R.id.AvailableExams)
         contenedor2 = findViewById(R.id.Layout)
 
         val index = intent.getIntExtra("Grade",100)
-        loadInformation(index)
 
         // Crear examen activity
         create_exam.setOnClickListener {
             val intent = Intent(applicationContext, AddQuestion::class.java)
+            intent.putExtra("grade", grade)
             startActivity(intent)
         }
 
+        printAllExams(contenedor1)
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     /**
      * Funcion para imprimir todos los examenes
      */
     fun printAllExams(contenedor: LinearLayout) {
-        for (exam in gradeTest.subjects!!) {
+        for (exam in grade.subjects!!) {
+
             val boton = Button(applicationContext)
             boton.text = exam.name
             boton.setBackgroundResource(R.drawable.boton_respuestas)
@@ -67,7 +76,14 @@ class Exams : AppCompatActivity(){
         }
     }
 
-    @Deprecated("Funcion no utilizada")
+    fun changeToQuestion(view: View){
+        Toast.makeText(applicationContext, "Hola", Toast.LENGTH_LONG).show()
+        val intent = Intent(view.context, Grades::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    /*@Deprecated("Funcion no utilizada")
     fun ApprovedExams(elementos: Int, contenedor: LinearLayout) {
         for (i in 0 until elementos) {
             //creando un objeto de la clase button
@@ -83,9 +99,9 @@ class Exams : AppCompatActivity(){
             }
             contenedor.addView(boton)
         }
-    }
+    }*/
 
-    @Deprecated("Funcion no utilizada")
+    /*@Deprecated("Funcion no utilizada")
     fun PendingExams(elementos: Int, contenedor: LinearLayout) {
         for (i in 0 until elementos) {
             //creando un objeto de la clase button
@@ -100,75 +116,5 @@ class Exams : AppCompatActivity(){
             }
             contenedor.addView(boton)
         }
-    }
-
-    fun changeToQuestion(view: View){
-        Toast.makeText(applicationContext, "Hola", Toast.LENGTH_LONG).show()
-        val intent = Intent(view.context, Grades::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    public fun loadInformation(index: Int){
-
-        val examsListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                for (postSnapshot in dataSnapshot.children) {
-                    // TODO: handle the post
-
-                    if(postSnapshot.child("grade").getValue(Int::class.java)!! == index) {
-                        //var grade = postSnapshot
-                        gradeTest.id = postSnapshot.child("id").getValue(String::class.java)!!
-                        gradeTest.grade = postSnapshot.child("grade").getValue(Int::class.java)!!
-                        var i = 0
-                        for (postSnapshot in postSnapshot.child("subjects").children) {
-                            var j = 0
-
-                            var insertExam =  StructExam("","", ArrayList<StructQuestion>())
-                            //gradeTest.subjects.add(postSnapshot.getValue(StructExam::class.java)!!)
-                            gradeTest.subjects.add(insertExam)
-                            gradeTest.subjects[i].id = postSnapshot.child("id").getValue(String::class.java)!!
-                            gradeTest.subjects[i].name = postSnapshot.child("name").getValue(String::class.java)!!
-                            for (postSnapshot in postSnapshot.child("questions").children) {
-
-                                var insertQuestion = StructQuestion("",0, StructOptions("","","",""))
-                                gradeTest.subjects[i].questions.add(insertQuestion)
-                                gradeTest.subjects[i].questions[j].options.optionOne = postSnapshot.child("options").child("optionOne")
-                                    .getValue(String::class.java)!!
-                                gradeTest.subjects[i].questions[j].options.optionTwo = postSnapshot.child("options").child("optionTwo")
-                                    .getValue(String::class.java)!!
-                                gradeTest.subjects[i].questions[j].options.optionThree = postSnapshot.child("options").child("optionThree")
-                                        .getValue(String::class.java)!!
-                                gradeTest.subjects[i].questions[j].options.optionFour = postSnapshot.child("options").child("optionFour")
-                                        .getValue(String::class.java)!!
-                                gradeTest.subjects[i].questions[j].question = postSnapshot.child("question").getValue(String::class.java)!!
-                                gradeTest.subjects[i].questions[j].correctAnswer = postSnapshot.child("correctAnswer").getValue(Int::class.java)!!
-
-
-                                //Toast.makeText(applicationContext, "$i "+ "$j", Toast.LENGTH_LONG).show()
-                                j++
-                            }
-
-                            i++
-                        }
-                    }// PONLO AQUÍ
-
-                }
-                // AQUÍ SE IMPRIME EL EXAMEN YA CON TODA LA INFO
-                Toast.makeText(applicationContext, "$gradeTest", Toast.LENGTH_LONG).show()
-
-                printAllExams(contenedor1)
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
-                // ...
-            }
-        }
-
-        database.addValueEventListener(examsListener);
-    }
-
+    }*/
 }
