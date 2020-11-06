@@ -20,5 +20,12 @@ class StructUser : Serializable {
         ap_materno: String,
         email: String,
         password: String
-    )
+    ) {
+        this.id = id
+        this.nombre = nombre
+        this.ap_paterno = ap_paterno
+        this.ap_materno = ap_materno
+        this.email = email
+        this.password = password
+    }
 }

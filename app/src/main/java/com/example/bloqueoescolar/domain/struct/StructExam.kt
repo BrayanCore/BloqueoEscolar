@@ -14,5 +14,9 @@ class StructExam : Serializable {
         name: String,
         id: String,
         questions: ArrayList<StructQuestion>
-    )
+    ) {
+        this.name = name
+        this.id = id
+        this.questions = questions
+    }
 }

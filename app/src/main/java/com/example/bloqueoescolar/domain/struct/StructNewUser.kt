@@ -15,5 +15,10 @@ class StructNewUser : Serializable {
         email: String,
         password: String,
         confirmPassword: String
-    )
+    ) {
+        this.nombre = nombre
+        this.email = email
+        this.password = password
+        this.confirmPassword = confirmPassword
+    }
 }

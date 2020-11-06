@@ -16,5 +16,10 @@ class StructOptions : Serializable {
         optionTwo: String,
         optionThree: String,
         optionFour: String,
-    )
+    ) {
+        this.optionOne = optionOne
+        this.optionTwo = optionTwo
+        this.optionThree = optionThree
+        this.optionFour = optionFour
+    }
 }

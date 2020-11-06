@@ -15,6 +15,10 @@ class StructGrade : Serializable {
         id: String,
         grade: Int,
         subjects: ArrayList<StructExam>
-    )
+    ) {
+        this.id = id
+        this.grade = grade
+        this.subjects = subjects
+    }
 
 }
