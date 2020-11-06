@@ -8,10 +8,12 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bloqueoescolar.domain.struct.*
+import com.example.bloqueoescolar.domain.struct.StructExam
+import com.example.bloqueoescolar.domain.struct.StructGrade
+import com.example.bloqueoescolar.domain.struct.StructOptions
+import com.example.bloqueoescolar.domain.struct.StructQuestion
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.exams_options.*
-import java.util.*
 
 class Exams : AppCompatActivity() {
 
