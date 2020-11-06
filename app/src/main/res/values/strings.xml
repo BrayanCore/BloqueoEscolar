@@ -15,4 +15,10 @@
     <string name="app_register_input_psw">  Contraseña</string>
     <string name="app_register_input_psw_confirm">Confirmar contraseña</string>
     <string name="app_register_btn_register">Registrar</string>
+
+    <!-- Pantalla Add Question -->
+    <string name="app_add_question_description">Descripcion del problema</string>
+    <string name="app_add_question_answer">Respuesta</string>
+    <string name="app_add_question_add">Agregar Pregunta</string>
+    <string name="app_add_question_finish">Terminar Examen</string>
 </resources>

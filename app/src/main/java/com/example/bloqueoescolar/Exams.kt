@@ -1,6 +1,5 @@
 package com.example.bloqueoescolar
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,19 +9,21 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bloqueoescolar.domain.struct.*
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.exams_options.*
-import kotlin.collections.ArrayList
+import java.util.*
 
 class Exams : AppCompatActivity() {
 
-    //val approvedSubjects = arrayOf("Biología", "Matematicas", "Química", "Español", "Ética", "Cursiva", "Ed.Física", "Historia")
-    //val pendingSubjects = arrayOf("Biología", "Matematicas", "Química", "Español", "Ética", "Cursiva", "Ed.Física", "Historia")
-    var grade = StructGrade()
-    val database = FirebaseDatabase.getInstance().getReference("Grados")
+    companion object {
+        private const val TAG = "Exams"
+    }
+
+    private var actualGrade: StructGrade = StructGrade();
+    private lateinit var gradeId: String;
+
+    private lateinit var gradeReference: DatabaseReference;
+    private lateinit var gradeListener: ValueEventListener;
 
     private lateinit var contenedor1: LinearLayout
     private lateinit var contenedor2: LinearLayout
@@ -32,32 +33,73 @@ class Exams : AppCompatActivity() {
         setContentView(R.layout.exams_options)
 
         //Se obtiene el grado actual
-        grade = intent.getSerializableExtra("grade") as StructGrade
+        gradeId = intent.getStringExtra("grade") as String
+
+        //Se referencia a la base de datos grados
+        gradeReference = FirebaseDatabase.getInstance().getReference("Grados/${gradeId}")
+        getSubjectsGrade()
 
         contenedor1 = findViewById(R.id.AvailableExams)
         contenedor2 = findViewById(R.id.Layout)
 
-        val index = intent.getIntExtra("Grade",100)
-
         // Crear examen activity
         create_exam.setOnClickListener {
             val intent = Intent(applicationContext, AddQuestion::class.java)
-            intent.putExtra("grade", grade)
+            intent.putExtra("grade", actualGrade)
             startActivity(intent)
         }
-
-        printAllExams(contenedor1)
     }
 
     override fun onStart() {
         super.onStart()
     }
 
+    private fun getSubjectsGrade() {
+
+        gradeListener = object : ValueEventListener {
+            override fun onDataChange(gradeSnapshot: DataSnapshot) {
+
+                //Se guardan datos del grado
+                val gradeDb = StructGrade()
+                gradeDb.id = gradeSnapshot.child("id").getValue(String::class.java)!!
+                gradeDb.grade = gradeSnapshot.child("grade").getValue(Int::class.java)!!
+
+                for (examSnapshot in gradeSnapshot.child("subjects").children) { // Se guardan examanes
+                    val exam = StructExam()
+                    exam.id = examSnapshot.child("id").getValue(String::class.java)!!
+                    exam.name = examSnapshot.child("name").getValue(String::class.java)!!
+
+                    for (questionSnapshot in examSnapshot.child("questions").children) { // Se guardan las preguntas
+                        val question = StructQuestion()
+                        question.question = questionSnapshot.child("question").getValue(String::class.java)!!
+                        question.correctAnswer = questionSnapshot.child("correctAnswer").getValue(Int::class.java)!!
+
+                        // Options
+                        val options = questionSnapshot.child("options").getValue(StructOptions::class.java)!!
+                        question.options = options
+
+                        exam.questions.add(question) // Se agregan preguntas al examen
+                    }
+                    gradeDb.subjects.add(exam) // Se agregan examenes al grado o grupo
+                }
+
+                actualGrade = gradeDb //Se actualiza la informacion
+                printAllExams(contenedor1)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        }
+
+        gradeReference.addValueEventListener(gradeListener)
+    }
+
     /**
      * Funcion para imprimir todos los examenes
      */
     fun printAllExams(contenedor: LinearLayout) {
-        for (exam in grade.subjects!!) {
+        contenedor.removeAllViews()
+        for (exam in actualGrade.subjects!!) {
 
             val boton = Button(applicationContext)
             boton.text = exam.name
@@ -117,4 +159,5 @@ class Exams : AppCompatActivity() {
             contenedor.addView(boton)
         }
     }*/
+
 }

@@ -13,5 +13,9 @@ class StructQuestion : Serializable {
         question: String,
         correctAnswer: Int,
         options: StructOptions
-    )
+    ) {
+        this.question = question
+        this.correctAnswer = correctAnswer
+        this.options = options
+    }
 }
