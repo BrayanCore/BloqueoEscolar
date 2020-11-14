@@ -10,12 +10,15 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bloqueoescolar.domain.struct.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.activity_score.*
 import kotlinx.android.synthetic.main.exams_options.*
 import kotlin.collections.ArrayList
+import java.util.Arrays
 
 class Exams : AppCompatActivity(){
 
@@ -23,6 +26,8 @@ class Exams : AppCompatActivity(){
     val pendingSubjects = arrayOf("Biología", "Matematicas", "Química", "Español", "Ética", "Cursiva", "Ed.Física", "Historia")
     var gradeTest = StructGrade("",0, ArrayList<StructExam>())
     val database = FirebaseDatabase.getInstance().getReference("Grados")
+    var indexGrade = 0
+    var examsApproved = ArrayList<String>()
 
     private lateinit var contenedor1: LinearLayout
     private lateinit var contenedor2: LinearLayout
@@ -34,8 +39,9 @@ class Exams : AppCompatActivity(){
         contenedor1 = findViewById(R.id.AvailableExams)
         contenedor2 = findViewById(R.id.Layout)
 
-        val index = intent.getIntExtra("Grade",100)
-        loadInformation(index)
+        indexGrade = intent.getIntExtra("Grade",100)
+        examsApproved = intent.getStringArrayListExtra("examsApproved")!!
+        loadInformation(indexGrade)
 
         // Crear examen activity
         create_exam.setOnClickListener {
@@ -48,22 +54,35 @@ class Exams : AppCompatActivity(){
     /**
      * Funcion para imprimir todos los examenes
      */
-    fun printAllExams(contenedor: LinearLayout) {
+    fun printAllExams(contenedor: LinearLayout, contenedor2: LinearLayout) {
         for (exam in gradeTest.subjects!!) {
+
+            //val found = Arrays.stream(examsApproved).anyMatch { t -> t == exam.id }
+            val found:Boolean = examsApproved.contains(exam.id)
+
             val boton = Button(applicationContext)
             boton.text = exam.name
-            boton.setBackgroundResource(R.drawable.boton_respuestas)
 
-            // Llamamos a la funcion on click
-            boton.setOnClickListener(){
-                val intent = Intent(applicationContext, Question::class.java)
-                intent.putExtra("questions", exam.questions)
-                intent.putExtra("index", 0)
-                startActivity(intent)
+            if (found) {
+                boton.setBackgroundResource(R.drawable.boton_enviar)
+                boton.setOnClickListener {
+                    Toast.makeText(applicationContext,"Exámen Aprobado", Toast.LENGTH_LONG).show()
+                }
+                contenedor2.addView(boton)
+            }
+            else {
+                boton.setBackgroundResource(R.drawable.boton_respuestas)
+                boton.setOnClickListener(){
+                    val intent = Intent(applicationContext, Question::class.java)
+                    intent.putExtra("questions", exam.questions)
+                    intent.putExtra("id", exam.id)
+                    intent.putExtra("indexGrade", indexGrade)
+                    startActivity(intent)
+                    finish()
+                }
+                contenedor.addView(boton)
             }
 
-            // Se agrega el boton a la vista
-            contenedor.addView(boton)
         }
     }
 
@@ -102,14 +121,7 @@ class Exams : AppCompatActivity(){
         }
     }
 
-    fun changeToQuestion(view: View){
-        Toast.makeText(applicationContext, "Hola", Toast.LENGTH_LONG).show()
-        val intent = Intent(view.context, SelectGrade::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    public fun loadInformation(index: Int){
+    public fun loadInformation(indexGrade: Int){
 
         val examsListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -117,7 +129,7 @@ class Exams : AppCompatActivity(){
                 for (postSnapshot in dataSnapshot.children) {
                     // TODO: handle the post
 
-                    if(postSnapshot.child("grade").getValue(Int::class.java)!! == index) {
+                    if(postSnapshot.child("grade").getValue(Int::class.java)!! == indexGrade) {
                         //var grade = postSnapshot
                         gradeTest.id = postSnapshot.child("id").getValue(String::class.java)!!
                         gradeTest.grade = postSnapshot.child("grade").getValue(Int::class.java)!!
@@ -156,9 +168,9 @@ class Exams : AppCompatActivity(){
 
                 }
                 // AQUÍ SE IMPRIME EL EXAMEN YA CON TODA LA INFO
-                Toast.makeText(applicationContext, "$gradeTest", Toast.LENGTH_LONG).show()
+                // Toast.makeText(applicationContext, "$gradeTest", Toast.LENGTH_LONG).show()
 
-                printAllExams(contenedor1)
+                printAllExams(contenedor1, contenedor2)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

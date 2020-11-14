@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 class Registro : AppCompatActivity() {
 
-    var usuario = User("", "", "", "", arrayListOf<Int>())
+    var usuario = User("", "", "", "", arrayListOf<String>())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
