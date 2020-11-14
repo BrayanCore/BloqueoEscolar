@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 if(task.isSuccessful) {
                     Log.d(TAG, "inicio de sesion exitoso")
                     val user = auth.currentUser
+
                     Log.d(TAG, "Verificado: ${user?.isEmailVerified}")
                     user?.let { validarCorreoVerificado(user.isEmailVerified) }
                 } else {
