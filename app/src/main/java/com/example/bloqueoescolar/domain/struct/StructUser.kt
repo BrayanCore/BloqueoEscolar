@@ -3,7 +3,6 @@ package com.example.bloqueoescolar.domain.struct
 import com.google.firebase.database.IgnoreExtraProperties
 import java.io.Serializable
 
-@IgnoreExtraProperties
 data class StructUser (
     var id: String,
     var nombre: String,
