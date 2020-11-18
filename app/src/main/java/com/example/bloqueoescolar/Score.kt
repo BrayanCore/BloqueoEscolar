@@ -18,7 +18,7 @@ class Score : AppCompatActivity() {
     var score = 0
     var reactives = 0
     var answersCorrects = ArrayList<Int>()
-    var grade = 0
+    lateinit var grade: String
     //var user: StructUser = StructUser("", "", "", "", "", "")
     var user = User("","","","", ArrayList())
     val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
@@ -30,34 +30,34 @@ class Score : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_score)
 
-        /*val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
-            // User is signed in
-            /*Toast.makeText(this,
-                "$user", Toast.LENGTH_LONG
-            ).show()*/
-        } else {
-            // No user is signed in
-            /*Toast.makeText(this,
-                "$user", Toast.LENGTH_LONG
-            ).show()*/
-        }*/
-
+        // Se obtienen los datos para mostrar en pantalla
         idExam = intent.getStringExtra("idExam")!!
         score = intent.getIntExtra("score", 0)
         reactives = intent.getIntExtra("reactives", 0)
         answersCorrects = intent.getIntegerArrayListExtra("answersCorrects")!!
-        grade = intent.getIntExtra("indexGrade", 0)
+        grade = intent.getStringExtra("indexGrade")!!
 
         calculateScore()
+    }
 
+    override fun onStart() {
+        super.onStart()
+
+        // Presentar nuevamente
         test_again.setOnClickListener {
-            val intent = Intent(this, SelectGrade::class.java)
+            val intent = Intent(this, Exams::class.java)
+            intent.putExtra("grade", grade)
             startActivity(intent)
-            //intent.putExtra("Grade", grade)
-            finish()
+            // finish()
         }
 
+        // Funcion de salida
+        exit.setOnClickListener {
+            val intent = Intent(this, Exams::class.java)
+            intent.putExtra("grade", grade)
+            startActivity(intent)
+            // finish()
+        }
     }
 
     fun calculateScore(){
@@ -93,7 +93,7 @@ class Score : AppCompatActivity() {
     }
 
     // Proximamente cambiaré esta función para cargar toda la info del usuario loggeado
-    fun showUsername(approved: Boolean){
+    fun showUsername(approved: Boolean) {
 
         //Toast.makeText(this, "" + currentFirebaseUser!!.uid, Toast.LENGTH_LONG).show()
 

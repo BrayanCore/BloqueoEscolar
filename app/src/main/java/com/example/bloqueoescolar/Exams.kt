@@ -12,6 +12,7 @@ import com.example.bloqueoescolar.domain.struct.StructExam
 import com.example.bloqueoescolar.domain.struct.StructGrade
 import com.example.bloqueoescolar.domain.struct.StructOptions
 import com.example.bloqueoescolar.domain.struct.StructQuestion
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.exams_options.*
 import kotlin.collections.ArrayList
@@ -28,14 +29,22 @@ class Exams : AppCompatActivity() {
     private lateinit var gradeReference: DatabaseReference;
     private lateinit var gradeListener: ValueEventListener;
 
-    private lateinit var examsApproved: List<String>
+    var examsApproved = ArrayList<String>()
 
     private lateinit var pendingContainer: LinearLayout
     private lateinit var approvedContainer: LinearLayout
 
+    val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
+    val databaseUser = FirebaseDatabase.getInstance().getReference("usuario").child(
+        currentFirebaseUser!!.uid
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.exams_options)
+
+        // Se obtienen examenes aprobados del usuario.
+        examsApproved = intent.getStringArrayListExtra("examsApproved")!!
 
         //Se obtiene el grado actual
         gradeId = intent.getStringExtra("grade") as String
@@ -47,10 +56,6 @@ class Exams : AppCompatActivity() {
         // Se obtienen los contenedores para mostrar los examenes.
         pendingContainer = findViewById(R.id.AvailableExams)
         approvedContainer = findViewById(R.id.Layout)
-
-        // Se obtienen examenes aprobados del usuario.
-        examsApproved = intent.getStringArrayListExtra("examsApproved")!!
-        //loadInformation(indexGrade)
     }
 
     override fun onStart() {
@@ -62,6 +67,28 @@ class Exams : AppCompatActivity() {
             intent.putExtra("grade", actualGrade)
             startActivity(intent)
         }
+    }
+
+    fun examsApprovedOfUser() {
+        examsApproved = ArrayList();
+        databaseUser.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                //Getting the string value of that node
+
+                for (postSnapshot in dataSnapshot.child("IDs").children) {
+
+                    var ID = postSnapshot.getValue(String::class.java)
+                    //Toast.makeText(applicationContext,"$ID", Toast.LENGTH_LONG).show()
+                    examsApproved.add(ID!!)
+                }
+
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+
+
+        })
     }
 
     private fun getSubjectsGrade() {
@@ -137,7 +164,7 @@ class Exams : AppCompatActivity() {
                     val intent = Intent(applicationContext, Question::class.java)
                     intent.putExtra("questions", exam.questions)
                     intent.putExtra("id", exam.id)
-                    intent.putExtra("indexGrade", actualGrade)
+                    intent.putExtra("indexGrade", actualGrade.id)
                     startActivity(intent)
                     finish()
                 }

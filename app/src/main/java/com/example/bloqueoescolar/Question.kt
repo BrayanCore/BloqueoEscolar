@@ -18,7 +18,7 @@ class Question : AppCompatActivity() {
 
     var currentExam = StructExam("","", ArrayList<StructQuestion>())
     var answersCorrects = ArrayList<Int>()
-    var indexGrade = 0
+    lateinit var indexGrade: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class Question : AppCompatActivity() {
         currentExam.questions = intent.getSerializableExtra("questions") as ArrayList<StructQuestion>
 
         currentExam.id = intent.getStringExtra("id")!!
-        indexGrade = intent.getIntExtra("indexGrade",0)
+        indexGrade = intent.getStringExtra("indexGrade")!!
 
         changeQuestion();
     }
@@ -57,11 +57,15 @@ class Question : AppCompatActivity() {
             changeColor(optionSelected)
         }
 
-        // EVENTO PARA CUANDO SE ENVIA LA RESPUESTA
-        submit_exam_btn.setOnClickListener {
-            answer(optionSelected)
+        // Si se trata solamente de una pregunta, muestra el boton enviar examen
+        if(currentExam.questions.size == 1) {
+            initSendExam()
+        } else {
+            // EVENTO PARA CUANDO SE ENVIA LA RESPUESTA
+            submit_exam_btn.setOnClickListener {
+                answer(optionSelected)
+            }
         }
-
     }
 
     fun changeQuestion(){
@@ -91,31 +95,13 @@ class Question : AppCompatActivity() {
                 }
 
                 index++
-                if (index == (currentExam.questions.size-1)){
-                    submit_exam_btn.text = "ENVIAR EXÁMEN"
-                    submit_exam_btn.setOnClickListener {
-                        if (optionSelected != 0){
-                            /*Toast.makeText(this,
-                                "EXÁMEN ENVIADO", Toast.LENGTH_LONG
-                            ).show()*/
-                            if(optionSelected == currentExam.questions[index].correctAnswer){
-                                score++
-                                answersCorrects.add((index+1))
-                            }
 
-                            val intent = Intent(applicationContext, Score::class.java)
-                            intent.putExtra("idExam", currentExam.id)
-                            intent.putExtra("score", score)
-                            intent.putExtra("indexGrade", indexGrade)
-                            intent.putExtra("reactives", currentExam.questions.size)
-                            intent.putIntegerArrayListExtra("answersCorrects", answersCorrects)
-                            startActivity(intent)
-                            finish()
-                        }else{
-                            selectOption()
-                        }
-                    }
+                // Si se trata de la ultima pregunta del examen, muestra el boton enviar examen
+                if (index == (currentExam.questions.size-1)) {
+                    initSendExam()
                     changeQuestion()
+
+                // Cualquier otra pregunta
                 }else if(index < currentExam.questions.size){
                     changeQuestion()
                 }
@@ -129,6 +115,30 @@ class Question : AppCompatActivity() {
         Toast.makeText(this,
             "TIENES QUE SELECCIONAR UNA OPCIÓN", Toast.LENGTH_LONG
         ).show()
+    }
+
+    private fun initSendExam() {
+        submit_exam_btn.text = "ENVIAR EXÁMEN"
+        submit_exam_btn.setOnClickListener {
+            if (optionSelected != 0){
+
+                if(optionSelected == currentExam.questions[index].correctAnswer){
+                    score++
+                    answersCorrects.add((index+1))
+                }
+
+                val intent = Intent(applicationContext, Score::class.java)
+                intent.putExtra("idExam", currentExam.id)
+                intent.putExtra("score", score)
+                intent.putExtra("indexGrade", indexGrade)
+                intent.putExtra("reactives", currentExam.questions.size)
+                intent.putIntegerArrayListExtra("answersCorrects", answersCorrects)
+                startActivity(intent)
+                finish()
+            }else{
+                selectOption()
+            }
+        }
     }
 
     fun changeColor(i: Int){

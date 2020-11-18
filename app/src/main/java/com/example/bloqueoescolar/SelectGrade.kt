@@ -133,7 +133,7 @@ class SelectGrade : AppCompatActivity() {
         }
     }
 
-    fun examsApprovedOfUser(){
+    fun examsApprovedOfUser() {
 
         databaseUser.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -153,7 +153,6 @@ class SelectGrade : AppCompatActivity() {
 
 
         })
-
     }
 
 }
