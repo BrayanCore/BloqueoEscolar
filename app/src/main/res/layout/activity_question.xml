@@ -1,133 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main"
+    android:background="@drawable/pizarra"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <!-- Descripcion -->
+    <TextView
+        android:id="@+id/descriptionProblem"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/c_redond"
+        android:gravity="center"
+        android:hint="@string/app_add_question_description"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/descriptionProblem">
+
+        <!-- Pregunta A -->
+        <TextView
+            android:id="@+id/textViewA"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="45dp"
+            android:gravity="center"
+            android:text="@string/app_question_option_a"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/first_clicked"
+            android:background="@drawable/c_redond"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.120"
+            app:layout_constraintStart_toEndOf="@+id/textViewA"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <!-- Respuesta B -->
+        <TextView
+            android:id="@+id/textViewB"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="38dp"
+            android:gravity="center"
+            android:text="@string/app_question_option_b"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewA" />
+
+        <Button
+            android:id="@+id/second_clicked"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/c_redond"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.120"
+            app:layout_constraintStart_toEndOf="@+id/textViewA"
+            app:layout_constraintTop_toBottomOf="@+id/first_clicked" />
+
+        <!-- Respuesta C -->
+        <TextView
+            android:id="@+id/textViewC"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="45dp"
+            android:gravity="center"
+            android:text="@string/app_question_option_c"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewB" />
+
+        <Button
+            android:id="@+id/third_clicked"
+            android:background="@drawable/c_redond"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.120"
+            app:layout_constraintStart_toEndOf="@+id/textViewC"
+            app:layout_constraintTop_toBottomOf="@+id/second_clicked" />
+
+        <!-- Respuesta D -->
+        <TextView
+            android:id="@+id/textViewD"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/app_question_option_d"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewC" />
+
+        <Button
+            android:id="@+id/fourth_clicked"
+            android:background="@drawable/c_redond"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.120"
+            app:layout_constraintStart_toEndOf="@+id/textViewD"
+            app:layout_constraintTop_toBottomOf="@+id/third_clicked" />
+
+        <Button
+            android:id="@+id/submit_exam_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/boton_enviar"
+            android:gravity="center_horizontal"
+            android:padding="20dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:text="@string/app_question_send"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fourth_clicked" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Main"
     android:background="@drawable/pizarra"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     >
-
-    <TextView
-        android:id="@+id/descriptionProblem"
-        android:hint="Descripción del problema"
-        android:gravity="center"
-        android:layout_marginTop="80dp"
-        android:layout_gravity="center"
-        android:layout_width="320dp"
-        android:layout_height="220dp"
-        android:textSize="20dp"
-        android:textColor="@android:color/black"
-        android:background="@drawable/c_redond"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        >
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="match_parent"
-            android:text="A)"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@android:color/white"
-            />
-
-            <Button
-                android:id="@+id/first_clicked"
-                android:background="@drawable/c_redond"
-                android:layout_width="250dp"
-                android:layout_height="60dp"
-                />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        >
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="match_parent"
-            android:text="B)"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@android:color/white"
-            />
-
-            <Button
-                android:id="@+id/second_clicked"
-                android:background="@drawable/c_redond"
-                android:layout_width="250dp"
-                android:layout_height="60dp"
-                />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        >
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="match_parent"
-            android:text="C)"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@android:color/white"
-            />
-
-            <Button
-                android:id="@+id/third_clicked"
-                android:background="@drawable/c_redond"
-                android:layout_width="250dp"
-                android:layout_height="60dp"
-                />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        >
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="match_parent"
-            android:text="D)"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginRight="5dp"
-            android:textColor="@android:color/white"
-            />
-
-            <Button
-                android:id="@+id/fourth_clicked"
-                android:background="@drawable/c_redond"
-                android:layout_width="250dp"
-                android:layout_height="60dp"
-                />
-    </LinearLayout>
 
     <Button
         android:id="@+id/submit_exam_btn"
@@ -142,4 +182,4 @@
         />
 
 
-</LinearLayout>
+</LinearLayout>-->

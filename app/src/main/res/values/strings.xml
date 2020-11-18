@@ -15,4 +15,26 @@
     <string name="app_register_input_psw">  Contraseña</string>
     <string name="app_register_input_psw_confirm">Confirmar contraseña</string>
     <string name="app_register_btn_register">Registrar</string>
+
+    <!-- Pantalla grados -->
+    <string name="app_grades_instructions">Selecciona el grado escolar</string>
+    <string name="app_grades_1">1er Grado</string>
+    <string name="app_grades_2">2do Grado</string>
+    <string name="app_grades_3">3er Grado</string>
+    <string name="app_grades_4">4to grado</string>
+    <string name="app_grades_5">5to Grado</string>
+    <string name="app_grades_6">6to Grado</string>
+
+    <!-- Questions -->
+    <string name="app_question_option_a">A)</string>
+    <string name="app_question_option_b">B)</string>
+    <string name="app_question_option_c">C)</string>
+    <string name="app_question_option_d">D)</string>
+    <string name="app_question_send">Enviar</string>
+
+    <!-- Pantalla Add Question -->
+    <string name="app_add_question_description">Descripcion del problema</string>
+    <string name="app_add_question_answer">Respuesta</string>
+    <string name="app_add_question_add">Agregar Pregunta</string>
+    <string name="app_add_question_finish">Terminar Examen</string>
 </resources>

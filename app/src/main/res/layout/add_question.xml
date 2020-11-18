@@ -1,196 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Main"
     android:background="@drawable/pizarra"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    >
+    android:gravity="center_horizontal">
 
+    <!-- Descripcion -->
     <EditText
         android:id="@+id/description"
-        android:hint="Descripción del problema"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/c_redond"
-        />
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:hint="@string/app_add_question_description"
+        android:autofillHints="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        >
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description">
+
+        <!-- Respuesta A -->
         <TextView
+            android:id="@+id/textViewA"
             android:layout_width="25dp"
             android:layout_height="match_parent"
-            android:text="A)"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="45dp"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
+            android:text="@string/app_question_option_a"
             android:textColor="@android:color/white"
-            />
-        <com.google.android.material.textfield.TextInputLayout
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/answer1"
             android:layout_width="250dp"
-            android:gravity="center"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_height="50dp"
             android:background="@drawable/boton_respuestas"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            >
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/answer1"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:hint="Respuesta Correcta"
-                android:background="@drawable/boton_respuestas"
-                android:textColor="#363A43"
-                android:textColorHint="#7A8089"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:inputType="textPersonName"
+            android:hint="@string/app_add_question_answer"
+            android:autofillHints="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.120"
+            app:layout_constraintStart_toEndOf="@+id/textViewA"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        >
+        <!-- Respuesta B -->
         <TextView
+            android:id="@+id/textViewB"
             android:layout_width="25dp"
             android:layout_height="match_parent"
-            android:text="B)"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
+            android:text="@string/app_question_option_b"
             android:textColor="@android:color/white"
-            />
-        <com.google.android.material.textfield.TextInputLayout
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewA" />
+
+        <EditText
+            android:id="@+id/answer2"
             android:layout_width="250dp"
-            android:gravity="center"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/wrong_answer"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            >
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/answer2"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:hint="Respuesta Incorrecta"
-                android:textColor="#FFF"
-                android:textColorHint="#7A8089"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:inputType="textPersonName"
+            android:hint="@string/app_add_question_answer"
+            android:autofillHints="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.120"
+            app:layout_constraintStart_toEndOf="@+id/textViewB"
+            app:layout_constraintTop_toBottomOf="@+id/answer1" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        >
+        <!-- Respuesta C -->
         <TextView
+            android:id="@+id/textViewC"
             android:layout_width="25dp"
             android:layout_height="match_parent"
-            android:text="C)"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
+            android:text="@string/app_question_option_c"
             android:textColor="@android:color/white"
-            />
-        <com.google.android.material.textfield.TextInputLayout
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewB" />
+
+        <EditText
+            android:id="@+id/answer3"
             android:layout_width="250dp"
-            android:gravity="center"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/wrong_answer"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            >
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/answer3"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:hint="Respuesta Incorrecta"
-                android:textColor="#FFF"
-                android:textColorHint="#7A8089"
-                android:background="@drawable/wrong_answer"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:inputType="textPersonName"
+            android:hint="@string/app_add_question_answer"
+            android:autofillHints="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.120"
+            app:layout_constraintStart_toEndOf="@+id/textViewC"
+            app:layout_constraintTop_toBottomOf="@+id/answer2" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        >
+        <!-- Respuesta D -->
         <TextView
+            android:id="@+id/textViewD"
             android:layout_width="25dp"
             android:layout_height="match_parent"
-            android:text="D)"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
+            android:text="@string/app_question_option_d"
             android:textColor="@android:color/white"
-            />
-        <com.google.android.material.textfield.TextInputLayout
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewC" />
+
+        <EditText
+            android:id="@+id/answer4"
             android:layout_width="250dp"
-            android:gravity="center"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/wrong_answer"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            >
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/answer4"
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:hint="Respuesta Incorrecta"
-                android:textColor="#FFF"
-                android:textColorHint="#7A8089"
-                android:background="@drawable/wrong_answer"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:inputType="textPersonName"
+            android:hint="@string/app_add_question_answer"
+            android:autofillHints="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.120"
+            app:layout_constraintStart_toEndOf="@+id/textViewD"
+            app:layout_constraintTop_toBottomOf="@+id/answer3" />
 
-    <Button
-        android:id="@+id/add_question"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/c_purple"
-        android:text="AGREGAR PREGUNTA"
-        android:padding="20dp"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        />
+        <!-- Agregar pregunta -->
+        <Button
+            android:id="@+id/add_question"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/c_purple"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/app_add_question_add"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/answer4" />
 
-    <Button
-        android:id="@+id/send_exam_btn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/boton_enviar"
-        android:text="EXAMEN TERMINADO"
-        android:padding="20dp"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        />
+        <!-- Terminar alta de examen -->
+        <Button
+            android:id="@+id/send_exam_btn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/boton_enviar"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:text="@string/app_add_question_finish"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_question" />
 
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

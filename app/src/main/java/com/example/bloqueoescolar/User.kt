@@ -6,6 +6,5 @@ data class User(
     var name: String,
     var email: String,
     var password: String,
-    var approved: ArrayList<Int>
-
+    var approved: ArrayList<String>
 )
