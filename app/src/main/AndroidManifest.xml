@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Question" />
-        <activity android:name=".Grades" />
+        <activity android:name=".SelectGrade" />
         <activity android:name=".AddQuestion" />
         <activity android:name=".Main" />
         <activity android:name=".Register" />

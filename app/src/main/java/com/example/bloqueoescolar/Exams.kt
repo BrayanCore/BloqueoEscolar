@@ -14,6 +14,7 @@ import com.example.bloqueoescolar.domain.struct.StructOptions
 import com.example.bloqueoescolar.domain.struct.StructQuestion
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.exams_options.*
+import kotlin.collections.ArrayList
 
 class Exams : AppCompatActivity() {
 
@@ -27,8 +28,10 @@ class Exams : AppCompatActivity() {
     private lateinit var gradeReference: DatabaseReference;
     private lateinit var gradeListener: ValueEventListener;
 
-    private lateinit var contenedor1: LinearLayout
-    private lateinit var contenedor2: LinearLayout
+    private lateinit var examsApproved: List<String>
+
+    private lateinit var pendingContainer: LinearLayout
+    private lateinit var approvedContainer: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,23 +40,28 @@ class Exams : AppCompatActivity() {
         //Se obtiene el grado actual
         gradeId = intent.getStringExtra("grade") as String
 
-        //Se referencia a la base de datos grados
+        // Se referencia a la base de datos grados.
         gradeReference = FirebaseDatabase.getInstance().getReference("Grados/${gradeId}")
         getSubjectsGrade()
 
-        contenedor1 = findViewById(R.id.AvailableExams)
-        contenedor2 = findViewById(R.id.Layout)
+        // Se obtienen los contenedores para mostrar los examenes.
+        pendingContainer = findViewById(R.id.AvailableExams)
+        approvedContainer = findViewById(R.id.Layout)
 
-        // Crear examen activity
+        // Se obtienen examenes aprobados del usuario.
+        examsApproved = intent.getStringArrayListExtra("examsApproved")!!
+        //loadInformation(indexGrade)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Boton para crear examen
         create_exam.setOnClickListener {
             val intent = Intent(applicationContext, AddQuestion::class.java)
             intent.putExtra("grade", actualGrade)
             startActivity(intent)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     private fun getSubjectsGrade() {
@@ -73,11 +81,14 @@ class Exams : AppCompatActivity() {
 
                     for (questionSnapshot in examSnapshot.child("questions").children) { // Se guardan las preguntas
                         val question = StructQuestion()
-                        question.question = questionSnapshot.child("question").getValue(String::class.java)!!
-                        question.correctAnswer = questionSnapshot.child("correctAnswer").getValue(Int::class.java)!!
+                        question.question =
+                            questionSnapshot.child("question").getValue(String::class.java)!!
+                        question.correctAnswer =
+                            questionSnapshot.child("correctAnswer").getValue(Int::class.java)!!
 
                         // Options
-                        val options = questionSnapshot.child("options").getValue(StructOptions::class.java)!!
+                        val options =
+                            questionSnapshot.child("options").getValue(StructOptions::class.java)!!
                         question.options = options
 
                         exam.questions.add(question) // Se agregan preguntas al examen
@@ -86,8 +97,9 @@ class Exams : AppCompatActivity() {
                 }
 
                 actualGrade = gradeDb //Se actualiza la informacion
-                printAllExams(contenedor1)
+                printAllExams() // Se muestran los examenes en pantalla
             }
+
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
             }
@@ -99,67 +111,46 @@ class Exams : AppCompatActivity() {
     /**
      * Funcion para imprimir todos los examenes
      */
-    fun printAllExams(contenedor: LinearLayout) {
-        contenedor.removeAllViews()
+    fun printAllExams() {
+        // Se limpian los examenes ya mostrados para no acumular mas.
+        pendingContainer.removeAllViews()
+        approvedContainer.removeAllViews()
+
+        // Se recorren los examenes al grado correspondiente.
         for (exam in actualGrade.subjects!!) {
+            val found: Boolean = examsApproved.contains(exam.id)
 
             val boton = Button(applicationContext)
             boton.text = exam.name
-            boton.setBackgroundResource(R.drawable.boton_respuestas)
 
-            // Llamamos a la funcion on click
-            boton.setOnClickListener(){
-                val intent = Intent(applicationContext, Question::class.java)
-                intent.putExtra("questions", exam.questions)
-                intent.putExtra("index", 0)
-                startActivity(intent)
+            if (found) { // Examenes Aprobados
+                boton.setBackgroundResource(R.drawable.boton_enviar)
+                boton.setOnClickListener {
+                    Toast.makeText(applicationContext, "Exámen Aprobado", Toast.LENGTH_LONG)
+                        .show()
+                }
+                approvedContainer.addView(boton)
+
+            } else { // Examenes Pendientes
+                boton.setBackgroundResource(R.drawable.boton_respuestas)
+                boton.setOnClickListener() {
+                    val intent = Intent(applicationContext, Question::class.java)
+                    intent.putExtra("questions", exam.questions)
+                    intent.putExtra("id", exam.id)
+                    intent.putExtra("indexGrade", actualGrade)
+                    startActivity(intent)
+                    finish()
+                }
+                pendingContainer.addView(boton)
             }
-
-            // Se agrega el boton a la vista
-            contenedor.addView(boton)
         }
     }
 
-    fun changeToQuestion(view: View){
+    fun changeToQuestion(view: View) {
         Toast.makeText(applicationContext, "Hola", Toast.LENGTH_LONG).show()
         val intent = Intent(view.context, Grades::class.java)
         startActivity(intent)
         finish()
     }
-
-    /*@Deprecated("Funcion no utilizada")
-    fun ApprovedExams(elementos: Int, contenedor: LinearLayout) {
-        for (i in 0 until elementos) {
-            //creando un objeto de la clase button
-            val boton = Button(applicationContext)
-            //Personalizando botones
-            boton.text = approvedSubjects.get(i)
-            boton.setBackgroundResource(R.drawable.boton_respuestas)
-            boton.setOnClickListener(){
-                val intent = Intent(applicationContext, Question::class.java)
-                intent.putExtra("Index",approvedSubjects.get(i))
-                startActivity(intent)
-
-            }
-            contenedor.addView(boton)
-        }
-    }*/
-
-    /*@Deprecated("Funcion no utilizada")
-    fun PendingExams(elementos: Int, contenedor: LinearLayout) {
-        for (i in 0 until elementos) {
-            //creando un objeto de la clase button
-            val boton = Button(applicationContext)
-            //Personalizando botones
-            boton.text = pendingSubjects.get(i)
-            boton.setBackgroundResource(R.drawable.boton_enviar)
-            boton.setOnClickListener(){
-                val intent = Intent(applicationContext, Question::class.java)
-                intent.putExtra("Index",approvedSubjects.get(i))
-                startActivity(intent)
-            }
-            contenedor.addView(boton)
-        }
-    }*/
 
 }

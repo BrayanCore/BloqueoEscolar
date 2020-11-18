@@ -50,6 +50,7 @@ class Login : AppCompatActivity() {
                 if(task.isSuccessful) {
                     Log.d(TAG, "inicio de sesion exitoso")
                     val user = auth.currentUser
+
                     Log.d(TAG, "Verificado: ${user?.isEmailVerified}")
                     user?.let { validarCorreoVerificado(user.isEmailVerified) }
                 } else {
@@ -66,7 +67,7 @@ class Login : AppCompatActivity() {
             Toast.makeText(baseContext, "Debe verificar su correo primero",
                 Toast.LENGTH_SHORT).show()
         } else {
-            val intent = Intent(this@Login, Grades::class.java)
+            val intent = Intent(this@Login, SelectGrade::class.java)
             startActivity(intent)
         }
     }
