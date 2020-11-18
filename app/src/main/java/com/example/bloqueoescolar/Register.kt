@@ -1,24 +1,24 @@
 package com.example.bloqueoescolar
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.bloqueoescolar.domain.struct.StructNewUser
 import com.example.bloqueoescolar.domain.struct.StructUser
-import com.example.bloqueoescolar.service.UsuarioService
+import com.example.bloqueoescolar.service.UserService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.acitivy_register.*
 
-class RegisterActivity : AppCompatActivity() {
+class Register : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var usuarioService: UsuarioService
+    private lateinit var userService: UserService
 
 
     companion object {
@@ -29,7 +29,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.acitivy_register)
         auth = Firebase.auth
-        usuarioService = UsuarioService()
+        userService = UserService()
 
         btn_start.setOnClickListener(){
             val name = name.text.toString()
@@ -67,7 +67,7 @@ class RegisterActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     this.registrarUsuario(registro, user)
                     showToast("Se ha enviado un correo de verificación a ${user.email} ")
-                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    val intent = Intent(this@Register, Login::class.java)
                     startActivity(intent)
                 } else {
                     Log.e(TAG, "sendEmailVerification", task.exception)
@@ -77,10 +77,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registrarUsuario(registro:StructNewUser, user: FirebaseUser) {
-        usuarioService = UsuarioService()
+        userService = UserService()
         val usuario = StructUser(user.uid,
             registro.nombre, "test", "test", registro.email, registro.password)
-        usuarioService.registerUsuario(user.uid, usuario)
+        userService.registerUsuario(usuario)
     }
 
     private fun showToast(message: String) {

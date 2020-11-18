@@ -1,20 +1,21 @@
 package com.example.bloqueoescolar
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.bloqueoescolar.domain.struct.StructExam
-import com.example.bloqueoescolar.domain.struct.StructOptions
 import com.example.bloqueoescolar.domain.struct.StructQuestion
 import kotlinx.android.synthetic.main.activity_question.*
 
 class Question : AppCompatActivity() {
 
-    var optionSelected = 0;
+    var optionSelected = 0; // Indica la opcion seleccionada
     var index = 0; // Indica el numero de pregunta actual
     var score = 0 // Indica cuántos aciertos tuvo
+
     var correctCurrentAnswer = 0
+
     var currentExam = StructExam("","", ArrayList<StructQuestion>())
     var answersCorrects = ArrayList<Int>()
     var indexGrade = 0
@@ -25,23 +26,15 @@ class Question : AppCompatActivity() {
 
         //var lista: ArrayList<StructQuestion> = intent.getSerializableExtra("questions") as ArrayList<StructQuestion>
         currentExam.questions = intent.getSerializableExtra("questions") as ArrayList<StructQuestion>
-        /* Questions Test
-        var testQuestion = StructQuestion(
-            "Gato", 3,
-            StructOptions("Bear","Dog","Cat","Tiger"))
-        var testQuestion2 = StructQuestion(
-            "Casa", 1,
-            StructOptions("House","Market","Stadium","School"))
-        currentExam.questions.add(testQuestion)
-        currentExam.questions.add(testQuestion2)*/
+
         currentExam.id = intent.getStringExtra("id")!!
         indexGrade = intent.getIntExtra("indexGrade",0)
 
         changeQuestion();
+    }
 
-        /*Toast.makeText(this,
-            "${currentExam.questions}", Toast.LENGTH_LONG
-        ).show()*/
+    override fun onStart() {
+        super.onStart()
 
         // AÑADIR EVENTO PARA CUANDO SE CLIQUEA UNA OPCION
         first_clicked.setOnClickListener {
@@ -126,18 +119,10 @@ class Question : AppCompatActivity() {
                 }else if(index < currentExam.questions.size){
                     changeQuestion()
                 }
-
-                /*Toast.makeText(this,
-                    "$score"+" $answersCorrects", Toast.LENGTH_LONG
-                ).show()*/
-
             }
         }else{
             selectOption()
         }
-
-        //changeQuestion()
-        //changeColor(i)
     }
 
     fun selectOption(){

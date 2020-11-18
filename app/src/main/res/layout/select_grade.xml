@@ -1,81 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gradesContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/pizarra"
     android:gravity="center_horizontal"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Selecciona el grado escolar"
-        android:textStyle="bold"
-        android:textSize="25dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/app_grades_instructions"
         android:textColor="@android:color/white"
-        android:layout_marginTop="70dp"
-        />
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/first_grade"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="1er grado"
-        android:padding="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/boton_respuestas"
-        />
+        android:padding="20dp"
+        android:text="@string/app_grades_1" />
 
     <Button
         android:id="@+id/second_grade"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="2do grado"
-        android:padding="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/boton_respuestas"
-        />
+        android:padding="20dp"
+        android:text="@string/app_grades_2" />
 
     <Button
         android:id="@+id/third_grade"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="3er grado"
-        android:padding="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/boton_respuestas"
-        />
+        android:padding="20dp"
+        android:text="@string/app_grades_3" />
 
     <Button
         android:id="@+id/fourth_grade"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="4to grado"
-        android:padding="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/boton_respuestas"
-        />
+        android:padding="20dp"
+        android:text="@string/app_grades_4" />
 
     <Button
         android:id="@+id/fifth_grade"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="5to grado"
-        android:padding="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/boton_respuestas"
-        />
+        android:padding="20dp"
+        android:text="@string/app_grades_5" />
 
     <Button
         android:id="@+id/sixth_grade"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="6to grado"
-        android:padding="20dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/boton_respuestas"
-        />
+        android:padding="20dp"
+        android:text="@string/app_grades_6" />
+
 
 </LinearLayout>

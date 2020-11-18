@@ -1,17 +1,17 @@
 package com.example.bloqueoescolar
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity() {
+class Login : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Boton crear cuenta
         txtLinkRegister.setOnClickListener {
-            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            val intent = Intent(this@Login, Register::class.java)
             startActivity(intent)
         }
     }
@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(baseContext, "Debe verificar su correo primero",
                 Toast.LENGTH_SHORT).show()
         } else {
-            val intent = Intent(this@LoginActivity, SelectGrade::class.java)
+            val intent = Intent(this@Login, SelectGrade::class.java)
             startActivity(intent)
         }
     }

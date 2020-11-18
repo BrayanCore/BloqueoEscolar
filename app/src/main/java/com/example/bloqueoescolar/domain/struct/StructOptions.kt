@@ -2,11 +2,24 @@ package com.example.bloqueoescolar.domain.struct
 
 import java.io.Serializable
 
-data class StructOptions(
+class StructOptions : Serializable {
 
-    var optionOne : String,
-    var optionTwo : String,
-    var optionThree : String,
-    var optionFour : String,
+    var optionOne: String = ""
+    var optionTwo: String = ""
+    var optionThree: String = ""
+    var optionFour: String = ""
 
-) : Serializable
+    constructor()
+
+    constructor (
+        optionOne: String,
+        optionTwo: String,
+        optionThree: String,
+        optionFour: String,
+    ) {
+        this.optionOne = optionOne
+        this.optionTwo = optionTwo
+        this.optionThree = optionThree
+        this.optionFour = optionFour
+    }
+}
