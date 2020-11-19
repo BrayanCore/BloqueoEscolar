@@ -1,5 +1,6 @@
 package com.example.bloqueoescolar
 
+import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -10,7 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_score.*
-
+import kotlin.system.exitProcess
 
 class Score : AppCompatActivity() {
 
@@ -51,12 +52,10 @@ class Score : AppCompatActivity() {
             // finish()
         }
 
-        // Funcion de salida
+        // Funcion para cerrar aplicación
         exit.setOnClickListener {
-            val intent = Intent(this, Exams::class.java)
-            intent.putExtra("grade", grade)
-            startActivity(intent)
-            // finish()
+            finishAffinity();
+            finishAndRemoveTask();
         }
     }
 
