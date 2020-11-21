@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scholar Lock</string>
+    <string name="app_login_title">Scholar Lock</string>
+    <string name="app_login_btn_login">Sign In</string>
+    <string name="app_login_btn_text_register">Sign Up</string>
+    <string name="app_login_btn_text_forget_password">I forgot my password</string>
+    <string name="app_register_title">Register</string>
+    <string name="app_register_instructions">Please, enter your data</string>
+    <string name="app_register_input_name">Name</string>
+    <string name="app_register_input_ap_paterno">Last Name (Father)</string>
+    <string name="app_register_input_ap_materno">Last Name (Mother)</string>
+    <string name="app_register_input_email">Email</string>
+    <string name="app_register_input_psw">Password</string>
+    <string name="app_register_input_psw_confirm">Confirm Password</string>
+    <string name="app_register_btn_register">Register</string>
+    <string name="app_grades_instructions">Select scholar grade</string>
+    <string name="app_grades_1">1st Grade</string>
+    <string name="app_grades_2">2nd Grade</string>
+    <string name="app_grades_3">3rd Grade</string>
+    <string name="app_grades_4">4th Grade</string>
+    <string name="app_grades_5">5th Grade</string>
+    <string name="app_grades_6">6th Grade</string>
+    <string name="app_exams_new">New Exam</string>
+    <string name="app_exams_available">Exams Available</string>
+    <string name="app_exams_approved">Exams Approved</string>
+    <string name="app_question_option_a">A)</string>
+    <string name="app_question_option_b">B)</string>
+    <string name="app_question_option_c">C)</string>
+    <string name="app_question_option_d">D)</string>
+    <string name="app_question_send">Send</string>
+    <string name="app_add_question_description">Problem Description</string>
+    <string name="app_add_question_answer">Answer</string>
+    <string name="app_add_question_add">Add Question</string>
+    <string name="app_add_question_finish">Finish Exam</string>
+    <string name="app_dialog_send_exam_input">Exam\'s Name</string>
+    <string name="app_dialog_send_exam_send">Send</string>
+    <string name="app_dialog_send_exam_cancel">Cancel</string>
+    <string name="app_score_title">¡Hey, congratulations!</string>
+    <string name="app_score_username">Username</string>
+    <string name="app_score_btn_exit">Exit</string>
+    <string name="app_score_btn_retry">Retry</string>
+    <string name="img_score_results">Exam status results</string>
+    <string name="img_exams_available_icon">Exams available icon</string>
+    <string name="img_exams_approved_icon">Exams approved icon</string>
+</resources>

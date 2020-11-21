@@ -18,6 +18,7 @@
         android:src="@drawable/ic_triste"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
+        android:contentDescription="@string/img_score_results"
         />
 
     <TextView
@@ -28,7 +29,7 @@
         android:textColor="@android:color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:text="Hey, Congratulations"
+        android:text="@string/app_score_title"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         />
@@ -41,7 +42,7 @@
         android:textColor="@android:color/white"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:text="Username"
+        android:text="@string/app_score_username"
         />
 
     <TextView
@@ -60,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@android:color/white"
-        android:text="SALIR"
+        android:text="@string/app_score_btn_exit"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -72,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@android:color/white"
-        android:text="PRESENTAR NUEVAMENTE"
+        android:text="@string/app_score_btn_retry"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"

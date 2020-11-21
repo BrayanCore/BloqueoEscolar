@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Bloqueo Escolar</string>
     <!-- Pantalla Inicio de sesión-->
-    <string name="app_login_title">Schoolar Lock</string>
+    <string name="app_login_title">Bloqueo Escolar</string>
     <string name="app_login_btn_login">Iniciar sesión</string>
     <string name="app_login_btn_text_register">CREAR CUENTA</string>
     <string name="app_login_btn_text_forget_password">He olvidado mi contraseña</string>
@@ -25,6 +25,11 @@
     <string name="app_grades_5">5to Grado</string>
     <string name="app_grades_6">6to Grado</string>
 
+    <!-- Exams -->
+    <string name="app_exams_new">Crear Exámen</string>
+    <string name="app_exams_available">Exámenes Disponibles</string>
+    <string name="app_exams_approved">Exámenes Aprobados</string>
+
     <!-- Questions -->
     <string name="app_question_option_a">A)</string>
     <string name="app_question_option_b">B)</string>
@@ -37,4 +42,20 @@
     <string name="app_add_question_answer">Respuesta</string>
     <string name="app_add_question_add">Agregar Pregunta</string>
     <string name="app_add_question_finish">Terminar Examen</string>
+
+    <!-- Send Exam Dialog -->
+    <string name="app_dialog_send_exam_input">Nombre del exámen</string>
+    <string name="app_dialog_send_exam_send">Enviar</string>
+    <string name="app_dialog_send_exam_cancel">Cancelar</string>
+
+    <!-- Score -->
+    <string name="app_score_title">¡Hey, felicidades!</string>
+    <string name="app_score_username">Usuario</string>
+    <string name="app_score_btn_exit">Salir</string>
+    <string name="app_score_btn_retry">Presentar nuevamente</string>
+
+    <!-- Imagenes -->
+    <string name="img_score_results">Resultados de examen estatus</string>
+    <string name="img_exams_available_icon">Exámenes disponibles icono</string>
+    <string name="img_exams_approved_icon">Exámenes aprobados icono</string>
 </resources>
