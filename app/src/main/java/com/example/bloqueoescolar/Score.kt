@@ -81,7 +81,7 @@ class Score : AppCompatActivity() {
     fun examApproved(){
 
         user.approved.add(idExam)
-        Toast.makeText(applicationContext,"${user.approved}", Toast.LENGTH_LONG).show()
+        //Toast.makeText(applicationContext,"${user.approved}", Toast.LENGTH_LONG).show()
         database.child("IDs").setValue(user.approved)
         /*var IDs = ArrayList<String>()
         IDs.add("1ero")
@@ -111,7 +111,7 @@ class Score : AppCompatActivity() {
 
                     }
 
-                    Toast.makeText(applicationContext, "${user.approved}", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(applicationContext, "${user.approved}", Toast.LENGTH_LONG).show()
                     examApproved()
                 }
 
