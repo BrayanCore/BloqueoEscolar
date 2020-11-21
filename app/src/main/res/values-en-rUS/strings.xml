@@ -14,7 +14,7 @@
     <string name="app_register_input_psw">Password</string>
     <string name="app_register_input_psw_confirm">Confirm Password</string>
     <string name="app_register_btn_register">Register</string>
-    <string name="app_grades_instructions">Select scholar grade</string>
+    <string name="app_grades_instructions">Select school grade</string>
     <string name="app_grades_1">1st Grade</string>
     <string name="app_grades_2">2nd Grade</string>
     <string name="app_grades_3">3rd Grade</string>

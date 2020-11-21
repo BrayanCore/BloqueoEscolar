@@ -63,15 +63,28 @@ class Score : AppCompatActivity() {
 
         if(score/reactives >= .70){
             ImageResult.setImageResource(R.drawable.ic_validacion)
-            textScore.text = "Tu puntuación fue $score de $reactives posibles"
-            message.text = "¡FELICIDADES, APROBASTE!"
+
+            if(exit.text == "Exit"){
+                textScore.text = "Your score was $score out of $reactives possible"
+                message.text = "¡CONGRATULATIONS, YOU ARE APPROVED"
+            }else{
+                textScore.text = "Tu puntuación fue $score de $reactives posibles"
+                message.text = "¡FELICIDADES, APROBASTE!"
+            }
+
             showUsername(true)
             //examApproved()
 
         }else{
             ImageResult.setImageResource(R.drawable.ic_triste)
-            textScore.text = "Tu puntuación fue $score de $reactives posibles"
-            message.text = "No te preocupes, ¡intentalo nuevamente!"
+            if(exit.text == "Exit"){
+                textScore.text = "Your score was $score out of $reactives possible"
+                message.text = "Don't worry, try it again"
+            }else{
+                textScore.text = "Tu puntuación fue $score de $reactives posibles"
+                message.text = "No te preocupes, ¡intentalo nuevamente!"
+            }
+
             showUsername(false)
         }
 
